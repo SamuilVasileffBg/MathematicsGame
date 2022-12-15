@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        html * {
+            font-size: 15px;
+            color: #000;
+            font-family: 'Brush Script MT', cursive;
+            text-align: center;
+        }
+
+        body {
+            background-image: url('clouds-image.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        label {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .map-container {
+            position: absolute;
+            left: 2%;
+            top: 20%;
+            width: 30%;
+            height: 30%;
+        }
+
+        .map-cell {}
+
+        .map-row {
+            position: relative;
+            vertical-align: top;
+
+        }
+
+        .container {
+            position: absolute;
+            background-color: rgba(239, 247, 240, 0.856);
+            border-radius: 20px 20px;
+            width: 65%;
+            height: 65%;
+            left: 17%;
+            top: 20%;
+        }
+
+        .options-action-div {
+            margin-left: 1%;
+            margin-bottom: 1%;
+            float: left;
+        }
+
+        .options-numbers-length-div-active {
+            visibility: visible;
+        }
+
+        .options-numbers-length-div-inactive {
+            visibility: hidden;
+        }
+
+        .button {
+            color: #fff;
+            background-color: #216ead;
+            outline: none;
+            border: 0;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+            transition: all .3s linear;
+        }
+
+        .button:hover {
+            background-color: #194094;
+            transition: all .3s linear;
+        }
+
+        .options-button-active {
+            color: #fff;
+            background-color: #20b13f;
+            outline: none;
+            border: 0;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+            transition: all .3s linear;
+        }
+
+        .options-button-active:hover {
+            background-color: #1c7a31
+        }
+
+        .options-button-inactive {
+            color: #fff;
+            background-color: #e74c3c;
+            outline: none;
+            border: 0;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+            transition: all .3s linear;
+        }
+
+        .options-button-inactive:hover {
+            background-color: #fc6555;
+        }
+
+        #submit-answer-button {}
+
+
+        input[type="text"] {
+            background-color: #fff;
+            border: 2px solid #20b13f;
+            border-radius: 20px;
+            transition: all .3s linear;
+        }
+
+        input[type="text"]:focus {
+            color: white;
+            background-color: #1c7a31;
+            border: 2px solid #1c7a31;
+            outline: none;
+            transition: all .3s linear;
+        }
+
+        .button-focus {
+            font-size: 100%;
+            color: #fff;
+            background-color: #f1ff2f;
+            outline: none;
+            border: 0;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+            transition: all .3s linear;
+        }
+
+        .difficulty-button {
+            font-size: 100%;
+            color: rgb(231, 8, 8);
+            background-color: #ffe02f;
+            outline: none;
+            border: 0;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+            transition: all .3s linear;
+            margin-top: 7%;
+        }
+
+        .difficulty-button:hover {
+            background-color: #ffae00;
+        }
+
+        #input:focus::placeholder {
+            color: white;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body style="background-image:'clouds-image.jpg'">
+    <audio id="clapping-sound" src="clapping-sound.mp3"></audio>
+    <center>
+        <div style="display:none; left:33%;" class="container" id="game-container">
+            <center>
+                <label id="score-label" style="display: none; font-size: 170%;">Точки: <span id="current-points-span"
+                        style="font-size: 100%"></span></label><br>
+                <label id="problem-label" style="font-size: 200%;"></label>
+                <div style="margin-top: 10%;">
+                    <input class="input" id="input" placeholder="Въведете отговор" type="text"
+                        onkeydown="javascript: return checkInputKey(event, this.value)" autocomplete="off"><br>
+                    <label id="output-label" style="font-size: 140%;"></label><br>
+                    <input type="button" class="button" id="submit-answer-button" value="Предай отговор">
+                    <input type="button" class="button" value="Изчисти" id="clear-button">
+                </div>
+                <div style="margin-top: 5%;">
+                    <input type="button" class="button" id="new-game-button" value="Нова игра">
+                    <input type="button" class="button" id="go-menu-button" value="Стартов екран">
+                </div>
+            </center>
+        </div>
+
+        <div style="display:inline" class="container" id="start-menu-container">
+            <center style="margin-top: 11%;">
+                <label for="" style="font-size: 200%;">Добре дошли във Весела Математика!</label><br>
+                <label>Изработил: Самуил Василев от 9-ти клас</label><br>
+                <input type="button" style="font-size: 200%; margin-top: 5%;" value="Започни игра" class="button" id="start-game-button">
+            </center>
+        </div>
+
+        <div style="display: none;" id="options-menu-container">
+            <div class="container" style="left:5%">
+                <center style="margin-top: 3%;">
+                    <label>Изберете настройки</label><br />
+                    <div class="options-action-div">
+                        <input type="button" name="sum" value="Събиране" class="options-button-active"
+                            id="sum-option-button">
+                        <div id="options-numbers-length-div-sum" name="sum">
+                            <label for="">Максимална дължина на</label><br />
+                            <label for="">Първо събираемо</label><br>
+                            <input type="text" onkeydown="javascript: return checkOptionsInput(event, this)"
+                                autocomplete="off"><br />
+                            <label for="">Второ събираемо</label><br>
+                            <input type="text" onkeydown="javascript: return checkOptionsInput(event, this)"
+                                autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="options-action-div">
+                        <input type="button" name="substraction" value="Изваждане" class="options-button-active"
+                            id="substraction-option-button">
+                        <div id="options-numbers-length-div-substraction" name="substraction">
+                            <label for="">Максимална дължина на</label><br />
+                            <label for="">Умаляемо</label><br>
+                            <input type="text" onkeydown="javascript: return checkOptionsInput(event, this)"
+                                autocomplete="off"><br />
+                            <label for="">Умалител</label><br>
+                            <input type="text" onkeydown="javascript: return checkOptionsInput(event, this)"
+                                autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="options-action-div">
+                        <input type="button" name="multiplication" value="Умножение" class="options-button-active"
+                            id="multiplication-option-button">
+                        <div id="options-numbers-length-div-multiplication" name="multiplication">
+                            <label for="">Максимална дължина на</label><br />
+                            <label for="">Първи множител</label><br>
+                            <input type="text" onkeydown="javascript: return checkOptionsInput(event, this)"
+                                autocomplete="off"><br />
+                            <label for="">Втори множител</label><br>
+                            <input type="text" onkeydown="javascript: return checkOptionsInput(event, this)"
+                                autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="options-action-div">
+                        <input type="button" name="division" value="Деление" class="options-button-active"
+                            id="division-option-button">
+                        <div id="options-numbers-length-div-division" name="division">
+                            <label for="">Максимална дължина на</label><br />
+                            <label for="">Делимо</label><br>
+                            <input type="text" onkeydown="javascript: return checkOptionsInput(event, this)"
+                                autocomplete="off"><br />
+                            <label for="">Делител</label><br>
+                            <input type="text" onkeydown="javascript: return checkOptionsInput(event, this)"
+                                autocomplete="off">
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <input type="button" value="Отрицателна разлика при изваждане" class="button"
+                                id="include-negative-answers-button">
+                            <div style="margin-top: 1%;">
+                                <label for="">Дължина и височина на картата</label>
+                                <input style="width: 25%" type="text" id="map-width-height-input"
+                                    onkeydown="javascript: return checkOptionsInput(event, this)"
+                                    autocomplete="off"><br>
+                            </div>
+                            <label style="color:#e74c3c; visibility: visible;" id="map-options-label">&nbsp</label>
+                        </div>
+                        <div style="margin-top: 1%;">
+                            <input type="button" name="" value="Начално меню" class="button" onclick="goMenu()">
+                            <input type="button" name="" value="Продължи" class="button" id="continue-game-button">
+                        </div>
+                    </div>
+                </center>
+            </div>
+            <div style="left: 74%; width: 20%;" class="container">
+                <center style="margin-top: 3%;">
+                    <label>Автоматични настройки</label><br>
+                    <label>Трудност:</label><br>
+                    <input id="easy-button" class="difficulty-button" type="button" value="Лесно"><br>
+                    <input id="medium-button" class="difficulty-button" type="button" value="Междинно"><br>
+                    <input id="hard-button" class="difficulty-button" type="button" value="Трудно"><br>
+                    <input id="very-hard-button" class="difficulty-button" type="button" value="Много трудно"><br>
+                    <input id="second-grade-button" class="difficulty-button" type="button" value="Втори клас">
+                </center>
+            </div>
+        </div>
+    </center>
+
+    <div id="map-container" class="map-container" style="display: none;">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
